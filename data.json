@@ -1,0 +1,14 @@
+[
+  {
+    "id": "tryywr354",
+    "title": "Judul Video Contoh",
+    "url_image": "https://via.placeholder.com/600x400.png?text=Thumbnail",
+    "url_offer": "https://contoh.com/offer"
+  },
+  {
+    "id": "abcd1234",
+    "title": "Video Kedua",
+    "url_image": "https://via.placeholder.com/600x400.png?text=Video+2",
+    "url_offer": "https://contoh.com/offer2"
+  }
+]
