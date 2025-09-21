@@ -49,6 +49,7 @@ export default function VideoPage({ video }: Props) {
         <meta property="og:title" content={video.title} />
         <meta property="og:image" content={video.url_image} />
         <meta property="og:type" content="website" />
+        <meta name="robots" content="noindex, nofollow" />
         <meta
           property="og:url"
           content={`https://gatotlink.vercel.app/${video.id}`}
