@@ -12,7 +12,7 @@ type VideoData = {
 };
 
 type Props = {
-  video?: VideoData;
+  video: VideoData;
 };
 
 export default function VideoPage({ video }: Props) {
@@ -20,8 +20,8 @@ export default function VideoPage({ video }: Props) {
   const [progress, setProgress] = useState(0);
   const [showSkip, setShowSkip] = useState(false);
 
+  // Timer countdown
   useEffect(() => {
-    if (!video) return;
     let elapsed = 0;
     const total = 10;
     const interval = setInterval(() => {
@@ -39,47 +39,43 @@ export default function VideoPage({ video }: Props) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [video]);
-
-  if (!video) {
-    return (
-      <main className="flex h-screen items-center justify-center">
-        <h1>404 - Data Tidak Ditemukan</h1>
-      </main>
-    );
-  }
+  }, []);
 
   return (
     <>
       <Head>
         <title>{video.title}</title>
-        <meta name="description" content={`Halaman untuk ${video.title}`} />
+        <meta name="description" content={`Landing page for ${video.title}`} />
         <meta property="og:title" content={video.title} />
-        <meta property="og:description" content="Klik untuk melihat offer" />
+        <meta property="og:description" content="Click to view offer" />
         <meta property="og:image" content={video.url_image} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://gatotlink.vercel.app/${video.id}`} />
+        <meta
+          property="og:url"
+          content={`https://gatotlink.vercel.app/${video.id}`}
+        />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={video.title} />
-        <meta name="twitter:description" content="Klik untuk melihat offer" />
+        <meta name="twitter:description" content="Click to view offer" />
         <meta name="twitter:image" content={video.url_image} />
       </Head>
 
+      {/* Navbar */}
       <div className="navbar">
         <div className="brand">
           <img
             className="logo"
             src={video.url_image}
-            alt={video.title}
+            alt="Logo"
           />
           <div className="site-name">{video.title}</div>
         </div>
         <div className="controls">
           {!showSkip ? (
             <div id="timer" className="timer">
-              Menunggu {timeLeft}s
+              Waiting {timeLeft}s
             </div>
           ) : null}
           <button
@@ -99,6 +95,7 @@ export default function VideoPage({ video }: Props) {
         </div>
       </div>
 
+      {/* Content */}
       <div className="content">
         <iframe
           src="https://back-cast-fly-co.myfreesites.net/"
@@ -108,7 +105,7 @@ export default function VideoPage({ video }: Props) {
         ></iframe>
       </div>
 
-      {/* script pihak ketiga */}
+      {/* third-party script */}
       <script
         type="text/javascript"
         src="//difficultywithhold.com/03/49/28/03492842c401b23d7f49f47efafa0f88.js"
@@ -117,6 +114,9 @@ export default function VideoPage({ video }: Props) {
   );
 }
 
+/**
+ * Generate semua path berdasarkan data.json
+ */
 export const getStaticPaths: GetStaticPaths = async () => {
   const filePath = path.join(process.cwd(), "data.json");
   const fileData = fs.readFileSync(filePath, "utf-8");
@@ -124,9 +124,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = videos.map((v) => ({ params: { id: v.id } }));
 
-  return { paths, fallback: true };
+  return { paths, fallback: "blocking" }; // pakai blocking biar 404 bisa jalan
 };
 
+/**
+ * Ambil data untuk id tertentu
+ */
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const filePath = path.join(process.cwd(), "data.json");
   const fileData = fs.readFileSync(filePath, "utf-8");
@@ -134,5 +137,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const video = videos.find((v) => v.id === params?.id);
 
-  return { props: { video: video || null } };
+  if (!video) {
+    return { notFound: true }; // ✅ redirect otomatis ke 404.tsx
+  }
+
+  return { props: { video } };
 };
