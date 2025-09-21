@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import fs from "fs";
 import path from "path";
+import { useEffect, useState } from "react";
 
 type VideoData = {
   id: string;
@@ -15,10 +16,35 @@ type Props = {
 };
 
 export default function VideoPage({ video }: Props) {
+  const [timeLeft, setTimeLeft] = useState(10);
+  const [progress, setProgress] = useState(0);
+  const [showSkip, setShowSkip] = useState(false);
+
+  useEffect(() => {
+    if (!video) return;
+    let elapsed = 0;
+    const total = 10;
+    const interval = setInterval(() => {
+      elapsed++;
+      const left = total - elapsed;
+      if (left > 0) {
+        setTimeLeft(left);
+        setProgress((elapsed / total) * 100);
+      } else {
+        clearInterval(interval);
+        setTimeLeft(0);
+        setProgress(100);
+        setShowSkip(true);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [video]);
+
   if (!video) {
     return (
       <main className="flex h-screen items-center justify-center">
-        <h1 className="text-xl font-bold">404 - Data Tidak Ditemukan</h1>
+        <h1>404 - Data Tidak Ditemukan</h1>
       </main>
     );
   }
@@ -29,30 +55,68 @@ export default function VideoPage({ video }: Props) {
         <title>{video.title}</title>
         <meta name="description" content={`Halaman untuk ${video.title}`} />
         <meta property="og:title" content={video.title} />
-        <meta property="og:image" content={video.url_image} />
         <meta property="og:description" content="Klik untuk melihat offer" />
+        <meta property="og:image" content={video.url_image} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://gatotlink.vercel.app/${video.id}`} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={video.title} />
+        <meta name="twitter:description" content="Klik untuk melihat offer" />
+        <meta name="twitter:image" content={video.url_image} />
       </Head>
-      <main className="flex flex-col items-center p-6">
-        <h1 className="text-2xl font-bold mb-4">{video.title}</h1>
-        <img
-          src={video.url_image}
-          alt={video.title}
-          className="rounded shadow-md mb-4"
-        />
-        <a
-          href={video.url_offer}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Lihat Offer
-        </a>
-      </main>
+
+      <div className="navbar">
+        <div className="brand">
+          <img
+            className="logo"
+            src="https://miro.medium.com/v2/resize:fit:1400/0*Ti3br8-2vKRXS1Pn.jpg"
+            alt="Logo"
+          />
+          <div className="site-name">Site Name</div>
+        </div>
+        <div className="controls">
+          {!showSkip ? (
+            <div id="timer" className="timer">
+              Menunggu {timeLeft}s
+            </div>
+          ) : null}
+          <button
+            id="skipBtn"
+            className={`skip-btn ${showSkip ? "show" : ""}`}
+            onClick={() => (window.location.href = video.url_offer)}
+          >
+            Skip Ad
+          </button>
+        </div>
+        <div className="progress">
+          <div
+            id="progressBar"
+            className="progress-bar"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+      </div>
+
+      <div className="content">
+        <iframe
+          src="https://back-cast-fly-co.myfreesites.net/"
+          width="100%"
+          height="600"
+          frameBorder="0"
+        ></iframe>
+      </div>
+
+      {/* script pihak ketiga */}
+      <script
+        type="text/javascript"
+        src="//difficultywithhold.com/03/49/28/03492842c401b23d7f49f47efafa0f88.js"
+      ></script>
     </>
   );
 }
 
-// generate path berdasarkan data.json
 export const getStaticPaths: GetStaticPaths = async () => {
   const filePath = path.join(process.cwd(), "data.json");
   const fileData = fs.readFileSync(filePath, "utf-8");
