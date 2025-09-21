@@ -71,10 +71,10 @@ export default function VideoPage({ video }: Props) {
         <div className="brand">
           <img
             className="logo"
-            src="https://miro.medium.com/v2/resize:fit:1400/0*Ti3br8-2vKRXS1Pn.jpg"
-            alt="Logo"
+            src={video.url_image}
+            alt={video.title}
           />
-          <div className="site-name">Site Name</div>
+          <div className="site-name">{video.title}</div>
         </div>
         <div className="controls">
           {!showSkip ? (
