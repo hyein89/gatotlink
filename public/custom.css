@@ -1,0 +1,127 @@
+ @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');  
+  *{margin:0;padding:0;box-sizing:border-box;font-family: "Bricolage Grotesque", sans-serif;
+      font-style: normal;
+      font-variation-settings:
+      "wdth" 100;
+      font-optical-sizing: auto;
+    
+    }
+  body,html{height:100%;margin:0;}
+
+
+  /* Navbar */
+  .navbar{
+    position:fixed;top:0;left:0;right:0;
+    height:60px;
+    background:#222;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 15px;
+    z-index:1000;
+  }
+  .brand{display:flex;align-items:center;gap:8px;}
+  .logo{
+    width:35px;height:35px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:bold;color:#fff;font-size:14px;
+  }
+  .site-name{font-weight:bold;font-size:16px;white-space:nowrap;}
+
+  /* Timer / Skip */
+  .controls{display:flex;align-items:center;gap:10px;}
+  .timer{font-size:14px;font-weight:bold;}
+  .skip-btn{
+    display:none;padding:6px 12px;border:0;
+    border-radius:6px;font-weight:bold;
+    background:linear-gradient(90deg,#06b6d4,#7c3aed);
+    color:#fff;cursor:pointer;
+  }
+  .skip-btn.show{display:inline-block;}
+
+  /* Progress bar */
+  .progress{
+    position:absolute;bottom:0;left:0;height:4px;background:#444;width:100%;
+  }
+  .progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#06b6d4,#7c3aed);}
+
+  /* Iframe area */
+  .content{
+    position:absolute;top:60px;left:0;right:0;bottom:0;
+  }
+  iframe{width:100%;height:100%;border:0;}
+
+  /* Responsive */
+  @media(max-width:480px){
+    .site-name{font-size:14px;}
+    .timer{font-size:13px;}
+    .logo{width:28px;height:28px;font-size:12px;}
+  }
+    
+
+.site-name {
+  font-weight:bold;
+  font-size:16px;
+  white-space:nowrap;       /* biar tetap 1 baris */
+  overflow:hidden;          /* sembunyikan teks kepanjangan */
+  text-overflow:ellipsis;   /* tambahkan ... di akhir */
+  max-width:160px;          /* batas lebar teks, bisa disesuaikan */
+}
+@media(max-width:480px){
+  .site-name{
+    max-width:100px;   /* lebih kecil di layar sempit */
+    font-size:14px;
+  }
+}
+.logo {
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:35px;
+  height:35px;   /* opsional: biar sudut rounded */
+  overflow:hidden;       /* penting: supaya gambar nggak keluar box */
+
+    /* opsional: background logo */
+}
+
+.logo img {
+  width:100%;
+  height:100%;
+  object-fit:contain;    /* gambar mengecil sesuai box, proporsional */
+}
+@media(max-width:480px){
+  .logo {
+    width:28px;
+    height:28px;
+  }
+}
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;          /* pastikan tinggi jelas */
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  z-index: 1000;
+}
+
+.content {
+  position: absolute;
+  top: 50px;   /* geser sesuai tinggi navbar */
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
