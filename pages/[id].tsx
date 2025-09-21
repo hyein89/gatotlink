@@ -19,7 +19,7 @@ export default function VideoPage({ video }: Props) {
   const [timeLeft, setTimeLeft] = useState(10);
   const [progress, setProgress] = useState(0);
   const [showSkip, setShowSkip] = useState(false);
-
+  const iframeUrl = process.env.NEXT_PUBLIC_IFRAME_URL || "";
   // Timer countdown
   useEffect(() => {
     let elapsed = 0;
@@ -67,7 +67,7 @@ export default function VideoPage({ video }: Props) {
           <img
             className="logo"
             src={video.url_image}
-            alt="Logo"
+            alt={video.title}
           />
           <div className="site-name">{video.title}</div>
         </div>
@@ -97,7 +97,7 @@ export default function VideoPage({ video }: Props) {
       {/* Content */}
       <div className="content">
         <iframe
-          src="https://back-cast-fly-co.myfreesites.net/"
+          src={iframeUrl}
           width="100%"
           height="600"
           frameBorder="0"
