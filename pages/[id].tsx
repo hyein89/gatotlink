@@ -47,7 +47,6 @@ export default function VideoPage({ video }: Props) {
         <title>{video.title}</title>
         <meta name="description" content={`Landing page for ${video.title}`} />
         <meta property="og:title" content={video.title} />
-        <meta property="og:description" content="Click to view offer" />
         <meta property="og:image" content={video.url_image} />
         <meta property="og:type" content="website" />
         <meta
@@ -58,8 +57,8 @@ export default function VideoPage({ video }: Props) {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={video.title} />
-        <meta name="twitter:description" content="Click to view offer" />
         <meta name="twitter:image" content={video.url_image} />
+        <link rel="icon" href="/xxlove.png"/>
       </Head>
 
       {/* Navbar */}
