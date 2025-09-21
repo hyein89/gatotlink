@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import Script from "next/script";
 import "../styles/404.css"; // tambahkan ini
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
