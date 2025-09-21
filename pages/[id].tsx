@@ -44,23 +44,24 @@ export default function VideoPage({ video }: Props) {
   return (
     <>
       <Head>
-        <title>{video.title}</title>
-        <meta name="description" content={`Landing page for ${video.title}`} />
-        <meta property="og:title" content={video.title} />
-        <meta property="og:image" content={video.url_image} />
-        <meta property="og:type" content="website" />
-        <meta name="robots" content="noindex, nofollow" />
-        <meta
-          property="og:url"
-          content={`https://gatotlink.vercel.app/${video.id}`}
-        />
 
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={video.title} />
-        <meta name="twitter:image" content={video.url_image} />
-        <link rel="icon" href="/xxlove.png"/>
-      </Head>
+  <title>{video.title}</title>
+  <meta name="description" content={`Landing page for ${video.title}`} />
+
+  {/* Open Graph (Facebook, WhatsApp) */}
+  <meta property="og:title" content={video.title} />
+  <meta property="og:image" content={video.url_image} />
+  <meta property="og:url" content={`https://gatotlink.vercel.app/${video.id}`} />
+  <meta property="og:type" content="website" />
+
+  {/* Twitter Card */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={video.title} />
+  <meta name="twitter:image" content={video.url_image} />
+
+  <link rel="icon" href="/xxlove.png" />
+</Head>
+
 
       {/* Navbar */}
       <div className="navbar">
