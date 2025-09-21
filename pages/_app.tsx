@@ -1,6 +1,15 @@
 import type { AppProps } from "next/app";
-import "../styles/custom.css"; // ✅ benar
+import Head from "next/head";
+
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Head>
+        <link rel="stylesheet" href="/custom.css" /> {/* load dari /public */}
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
 }
+
 
