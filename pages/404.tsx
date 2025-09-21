@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Head from "next/head";
-import "../styles/404.css"; // import CSS khusus 404
 
 export default function Custom404() {
   return (
@@ -19,8 +18,6 @@ export default function Custom404() {
             Go Back Home
           </Link>
         </div>
-
-        {/* Animated background */}
         <div className="circle circle1"></div>
         <div className="circle circle2"></div>
       </main>
