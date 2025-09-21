@@ -74,7 +74,7 @@ export default function VideoPage({ video }: Props) {
         <div className="controls">
           {!showSkip ? (
             <div id="timer" className="timer">
-              Waiting {timeLeft}s
+              Please Wait... {timeLeft}s
             </div>
           ) : null}
           <button
