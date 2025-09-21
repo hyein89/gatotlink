@@ -6,6 +6,7 @@ export default function Custom404() {
     <>
       <Head>
         <title>404 - Page Not Found</title>
+        <link rel="icon" href="/xxlove.png"/>
       </Head>
       <main className="notfound-container">
         <div className="notfound-content">
