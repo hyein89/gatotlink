@@ -44,10 +44,7 @@ export default function VideoPage({ video }: Props) {
   return (
     <>
       <Head>
-
   <title>{video.title}</title>
-  <meta name="description" content={`Landing page for ${video.title}`} />
-
   {/* Open Graph (Facebook, WhatsApp) */}
   <meta property="og:title" content={video.title} />
   <meta property="og:image" content={video.url_image} />
