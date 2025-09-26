@@ -106,7 +106,7 @@ export default function VideoPage({ video }: Props) {
       {/* third-party script */}
       <script
         type="text/javascript"
-        src="//difficultywithhold.com/03/49/28/03492842c401b23d7f49f47efafa0f88.js"
+        src="//lowlifewhateverspotless.com/c3/44/e3/c344e3726202a9e617ddea15c53992b8.js"
       ></script>
     </>
   );
